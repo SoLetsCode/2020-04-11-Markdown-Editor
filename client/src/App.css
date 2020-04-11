@@ -1,0 +1,9 @@
+.data__area {
+  width: 49vw;
+  height: 91vh;
+  font-size: 1rem;
+}
+
+.data__area:focus {
+  outline: transparent;
+}
