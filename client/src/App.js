@@ -12,22 +12,40 @@ import { makeStyles } from "@material-ui/core/styles";
 import showdown from "showdown";
 const converter = new showdown.Converter();
 
+const startString = `
+# use # for header
+### Put in your markdown in the left box and it gets rendered in HTML on the other side
+
+1. list item 1
+1. list item 2
+1. list item 3
+
+*Did you know you can even put in images?*
+
+![Kitten](http://placekitten.com/g/200/300 "A cute kitten")
+
+[Link to my github if you want to see my other projects](www.github.com/soletscode)
+`;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    height: "100vh",
   },
   area: {
     fontSize: "1rem",
     width: "100%",
-    height: "90vh",
+    height: "88vh",
     outline: "none",
+    overflowY: "scroll",
+    padding: "1rem",
   },
 }));
 
 function App() {
   //hook records the changes that I make
-  const [myHtml, setMyHtml] = useState();
+  const [myHtml, setMyHtml] = useState({
+    __html: converter.makeHtml(startString),
+  });
   //set classes constant for material-ui
   const classes = useStyles();
 
@@ -42,9 +60,11 @@ function App() {
     <div className="App">
       <AppBar />
       <div className={classes.root}>
-        <Grid container spacing={1}>
+        <Grid container spacing={3}>
           <Grid item xs={6}>
-            <textarea className={classes.area} onChange={userInput}></textarea>
+            <textarea className={classes.area} onChange={userInput}>
+              {startString}
+            </textarea>
           </Grid>
           <Grid item xs={6}>
             <div
